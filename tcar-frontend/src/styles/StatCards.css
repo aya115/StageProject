@@ -1,0 +1,17 @@
+/* StatCards.css */
+.stat-cards {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+.stat-cards .card {
+  flex: 1;
+  border: 2px solid;
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.stat-cards .card h4 {
+  margin: 0 0 10px;
+}

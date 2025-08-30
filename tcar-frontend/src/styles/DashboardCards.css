@@ -1,0 +1,43 @@
+.cards-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-left: 250px; /* espace sidebar */
+  margin-top: 80px;   /* espace navbar */
+  padding: 20px;
+}
+
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 120px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.2s ease-in-out;
+    margin-left: 0; /* on enlève le décalage */
+
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Couleurs différentes par card */
+.cards-container .card:nth-child(1) p { color: #f39c12; } /* orange */
+.cards-container .card:nth-child(2) p { color: #27ae60; } /* vert */
+.cards-container .card:nth-child(3) p { color: #2980b9; } /* bleu */
+.cards-container .card:nth-child(4) p { color: #e74c3c; } /* rouge */
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: bold;
+}
