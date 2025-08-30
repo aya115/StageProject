@@ -1,11 +1,11 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import StatCards from '../components/StatCards';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
 import '../styles/Dashboard.css';
 import { useNavigate } from 'react-router-dom';
+import DashboardCards from '../components/DashboardCards';
 
 function Dashboard() {
   const navigate = useNavigate(); // ⚠️ Ajout ici
@@ -15,7 +15,7 @@ function Dashboard() {
       <Sidebar />
       <div className="main">
         <Navbar />
-        <StatCards />
+        <DashboardCards />
 
     
         <div className="charts">

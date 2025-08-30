@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   LineElement,
@@ -7,55 +7,41 @@ import {
   PointElement,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
-// Enregistrement des composants
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  Legend
-);
-
-const data = {
-  labels: ['9:00AM', '12:00PM', '3:00PM', '6:00PM', '9:00PM'],
-  datasets: [
-    {
-      label: 'Performance',
-      data: [200, 400, 600, 800, 900],
-      borderColor: 'blue',
-      backgroundColor: 'rgba(0, 123, 255, 0.5)',
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: true,
-      labels: {
-        color: 'black', // visible sur fond blanc
-      },
-    },
-  },
-  scales: {
-    x: {
-      ticks: { color: 'black' },
-      grid: { color: '#ccc' },
-    },
-    y: {
-      ticks: { color: 'black' },
-      grid: { color: '#ccc' },
-    },
-  },
-};
-
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
 function LineChart() {
+  const [lineData, setLineData] = useState({
+    labels: [],
+    values: []
+  });
+
+  useEffect(() => {
+    fetch("http://localhost:8081/api/dashboard/line")
+      .then((res) => res.json())
+      .then((data) => setLineData(data))
+      .catch((err) => console.error("Erreur LineChart:", err));
+  }, []);
+
+  const data = {
+    labels: lineData.labels, // ["Fournisseurs", "Mécaniciens"]
+    datasets: [
+      {
+        label: "Nombre",
+        data: lineData.values, // [nbFournisseurs, nbMecaniciens]
+        borderColor: "blue",
+        backgroundColor: "rgba(0, 123, 255, 0.5)",
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: { legend: { display: true } },
+  };
+
   return <Line data={data} options={options} />;
 }
 

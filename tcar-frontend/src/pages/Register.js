@@ -4,14 +4,17 @@ import '../styles/LoginPage.css';
 
 function Register() {
   const [role, setRole] = useState('Participant');
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    adresse: '',
-    numtel: '',
-    nomEntreprise: '',
-    adresseEntreprise: '',
-  });
+ const [formData, setFormData] = useState({
+  username: '',
+  password: '',
+  adresse: '',
+  numtel: '',
+  email: '',            // ⚠️ Ajouté pour participant
+  nomEntreprise: '',
+  adresseEntreprise: '',
+  emailEntreprise: ''   // ⚠️ Ajouté pour entreprise
+});
+
 
   const navigate = useNavigate();
 
@@ -27,17 +30,20 @@ function Register() {
       password: formData.password,
       role: role.toUpperCase(),
       ...(role === 'Participant' && {
-        participant: {
-          adresse: formData.adresse,
-          telephone: formData.numtel
-        }
-      }),
-      ...(role === 'Entreprise' && {
-        entreprise: {
-          nom: formData.nomEntreprise,
-          adresse: formData.adresseEntreprise
-        }
-      })
+  participant: {
+    adresse: formData.adresse,
+    telephone: formData.numtel,
+    email: formData.email  // ⚠️ ajouté
+  }
+}),
+...(role === 'Entreprise' && {
+  entreprise: {
+    nom: formData.nomEntreprise,
+    adresse: formData.adresseEntreprise,
+    email: formData.emailEntreprise  // ⚠️ ajouté
+  }
+})
+
     };
 
     try {
