@@ -66,7 +66,7 @@ function AddPieceForm() {
   return (
     <div className="page-container">
 
-    <div style={{ padding: '20px', color: 'white' }}>
+    <div style={{ padding: '2px', color: 'white' }}>
       <h2>{editingId ? 'Modifier' : 'Ajouter'} une Pièce</h2>
       <form onSubmit={handleSubmit}>
         <input name="nom" value={form.nom} onChange={handleChange} placeholder="Nom" required style={{ margin: '5px' }} />
@@ -74,7 +74,7 @@ function AddPieceForm() {
         <button type="submit" style={{ marginTop: '10px' }}>{editingId ? 'Modifier' : 'Ajouter'}</button>
       </form>
 
-      <div style={{ marginTop: '30px' }}>
+      <div style={{ marginTop: '40px' }}>
         <h3>Liste des Pièces</h3>
         <table border="1" style={{ backgroundColor: 'white', color: 'black', width: '100%' }}>
           <thead>

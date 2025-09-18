@@ -36,4 +36,12 @@ public class ChatController {
 
         return service.history(userId);
     }
+    @GetMapping("/stats")
+    public Map<String, Long> getChatStats() {
+        Map<String, Long> stats = service.countAsks();
+        long total = stats.values().stream().mapToLong(Long::longValue).sum();
+        stats.put("total", total);
+        return stats;
+    }
+
 }

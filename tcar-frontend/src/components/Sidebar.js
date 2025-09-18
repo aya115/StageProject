@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaUser, FaList, FaBell, FaMapMarkedAlt, FaPlus } from 'react-icons/fa';
 import '../styles/Sidebar.css';
+import NotificationsPage from "../pages/NotificationsPage";
 
 function Sidebar() {
   return (
@@ -9,10 +10,7 @@ function Sidebar() {
       <h2>🚗 ICARS</h2>
       <ul>
         <li><Link to="/"><FaHome /> Home</Link></li>
-        <li><Link to="#"><FaUser /> Profil</Link></li>
-        <li><Link to="#"><FaList /> Pièces</Link></li>
-        <li><Link to="#"><FaMapMarkedAlt /> Localisation</Link></li>
-        <li><Link to="#"><FaBell /> Notifications</Link></li>
+        <li><Link to="/notifications"><FaBell /> Notifications</Link></li>
 
         <hr />
 

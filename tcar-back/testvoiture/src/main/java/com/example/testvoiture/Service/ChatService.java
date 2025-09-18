@@ -245,4 +245,31 @@ public class ChatService {
         }
         return dp[a.length()][b.length()];
     }
+    // ChatService.java
+    public Map<String, Long> countAsks() {
+        List<ChatMessage> messages = chatRepo.findAll();
+
+        long fournisseurs = messages.stream()
+                .filter(m -> "USER".equals(m.getSender()))
+                .filter(m -> containsAny(normalize(m.getContent()), KW_FOURNISSEUR))
+                .count();
+
+        long mecaniciens = messages.stream()
+                .filter(m -> "USER".equals(m.getSender()))
+                .filter(m -> containsAny(normalize(m.getContent()), KW_MECANICIEN))
+                .count();
+
+        long pieces = messages.stream()
+                .filter(m -> "USER".equals(m.getSender()))
+                .filter(m -> containsAny(normalize(m.getContent()), KW_PIECE))
+                .count();
+
+        Map<String, Long> stats = new HashMap<>();
+        stats.put("fournisseurs", fournisseurs);
+        stats.put("mecaniciens", mecaniciens);
+        stats.put("pieces", pieces);
+
+        return stats;
+    }
+
 }

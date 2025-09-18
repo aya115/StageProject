@@ -18,6 +18,9 @@ public class AuthService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private  EmailService emailService;
+
 
     public User register(SignupRequest dto) {
 
@@ -58,11 +61,49 @@ public class AuthService {
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Mot de passe incorrect !");
         }
+
         System.out.println("Mot de passe entré : " + dto.getPassword());
         System.out.println("Mot de passe en base : " + user.getPassword());
         System.out.println("Résultat de passwordEncoder.matches : " + passwordEncoder.matches(dto.getPassword(), user.getPassword()));
 
         return user;
     }
+    public void forgotPassword(String email) {
+        // Cherche l'utilisateur soit dans PARTICIPANT soit ENTREPRISE
+        User user = userRepository.findByEmailParticipant(email)
+                .orElseGet(() -> userRepository.findByEmailEntreprise(email)
+                        .orElseThrow(() -> new RuntimeException("Email non trouvé")));
+
+        // Générer un mot de passe temporaire en clair
+        String tempPassword = generateRandomPassword(8);
+
+        // Encoder le mot de passe temporaire
+        String encodedPassword = passwordEncoder.encode(tempPassword);
+        user.setPassword(encodedPassword);
+
+        // Sauvegarder et forcer le flush pour s'assurer que c'est mis à jour immédiatement
+        userRepository.saveAndFlush(user);
+
+        // Log pour debug
+        System.out.println("Mot de passe temporaire (clair) : " + tempPassword);
+        System.out.println("Mot de passe encodé sauvegardé en base : " + encodedPassword);
+
+        // Envoyer le mot de passe temporaire par email
+        emailService.sendEmail(email,
+                "Réinitialisation de votre mot de passe",
+                "Bonjour " + user.getUsername() + ",\n\nVotre nouveau mot de passe temporaire est : " + tempPassword);
+    }
+
+
+    private String generateRandomPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$!";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int idx = (int) (Math.random() * chars.length());
+            sb.append(chars.charAt(idx));
+        }
+        return sb.toString();
+    }
+
 
 }

@@ -1,0 +1,126 @@
+/* Conteneur global */
+.search-container {
+  padding: 20px;
+}
+
+/* Barre de recherche */
+.search-bar-wrapper {
+  display: flex;
+  justify-content: flex-start; /* alignée à gauche */
+  margin: 20px 0 30px 4%; /* espace avec sidebar */
+}
+
+.search-bar {
+  display: flex;
+  width: 450px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-bar button {
+  background: #1e90ff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0 50px 50px 0;
+}
+
+.search-bar button:hover {
+  background: #0f6ad8;
+}
+
+/* Résultats */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Section (mécaniciens, fournisseurs...) */
+.result-section {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.result-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.result-section h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #06283D;
+  border-left: 5px solid #1abc9c;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+/* Table */
+.result-section table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.result-section th {
+  background: #f9f9f9;
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  color: #444;
+}
+
+.result-section td {
+  padding: 12px;
+  border-top: 1px solid #eee;
+}
+
+.result-section tr:hover {
+  background: #f3faff;
+}
+
+/* Couleur spécialité */
+.result-section td:nth-child(2) {
+  color: #1abc9c;
+  font-weight: 500;
+}
+
+/* Messages */
+.loading {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}

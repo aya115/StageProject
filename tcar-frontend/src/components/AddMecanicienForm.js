@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/FormStyle.css'; // selon le chemin réel
+import '../styles/FormStyle.css';
 
 function AddMecanicienForm() {
   const [form, setForm] = useState({
@@ -99,39 +99,61 @@ function AddMecanicienForm() {
 
   return (
     <div className="page-container">
+      <div className="form-card">
+        <h2>{editingId ? 'Modifier' : 'Ajouter'} un Mécanicien</h2>
+        <form onSubmit={handleSubmit} className="styled-form">
+          <input
+            className="styled-input"
+            name="nom"
+            value={form.nom}
+            onChange={handleChange}
+            placeholder="Nom"
+            required
+          />
+          <input
+            className="styled-input"
+            name="adresse"
+            value={form.adresse}
+            onChange={handleChange}
+            placeholder="Adresse"
+            required
+          />
+          <input
+            className="styled-input"
+            name="specialite"
+            value={form.specialite}
+            onChange={handleChange}
+            placeholder="Spécialité"
+            required
+          />
 
-    <div style={{ color: 'white', padding: '20px' }}>
-      <h2>{editingId ? 'Modifier' : 'Ajouter'} un Mécanicien</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="nom" value={form.nom} onChange={handleChange} placeholder="Nom" required style={{ margin: '5px' }} />
-        <input name="adresse" value={form.adresse} onChange={handleChange} placeholder="Adresse" required style={{ margin: '5px' }} />
-        <input name="specialite" value={form.specialite} onChange={handleChange} placeholder="Spécialité" required style={{ margin: '5px' }} />
-
-        <div style={{ marginTop: '10px' }}>
-          <label>Associer Pièces :</label>
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '5px' }}>
-            {allSpareParts.map(part => (
-              <label key={part.id}>
-                <input
-                  type="checkbox"
-                  value={part.id}
-                  checked={form.pieces.includes(part.id.toString())}
-                  onChange={handleCheckboxChange}
-                />
-                {' '}
-                {part.nom} - {part.modele}
-              </label>
-            ))}
+          <div className="checkbox-group">
+            <label>Associer Pièces :</label>
+            <div className="checkbox-list">
+              {allSpareParts.map(part => (
+                <label key={part.id} className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    value={part.id}
+                    checked={form.pieces.includes(part.id.toString())}
+                    onChange={handleCheckboxChange}
+                  />
+                  {part.nom} - {part.modele}
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <button type="submit" style={{ marginTop: '15px' }}>{editingId ? 'Modifier' : 'Ajouter'}</button>
-      </form>
+          <button type="submit" className="styled-button">
+            {editingId ? 'Modifier' : 'Ajouter'}
+          </button>
+        </form>
+      </div>
 
       {/* Liste des mécaniciens */}
-      <div style={{ marginTop: '30px' }}>
+      <div className="list-card">
         <h3>Liste des Mécaniciens</h3>
-        <table border="1" style={{ backgroundColor: 'white', color: 'black', width: '100%' }}>
+        <table className="styled-table">
           <thead>
             <tr>
               <th>Nom</th>
@@ -149,16 +171,15 @@ function AddMecanicienForm() {
                 <td>{m.specialite}</td>
                 <td>{m.pieces?.map(p => `${p.nom} - ${p.modele}`).join(', ')}</td>
                 <td>
-                  <button onClick={() => handleEdit(m)}>📝</button>{' '}
-                  <button onClick={() => handleDelete(m.id)}>🗑</button>{' '}
-                  <button onClick={() => handleDetails(m)}>ℹ️</button>
+                  <button className="action-btn edit" onClick={() => handleEdit(m)}>📝</button>
+                  <button className="action-btn delete" onClick={() => handleDelete(m.id)}>🗑</button>
+                  <button className="action-btn info" onClick={() => handleDetails(m)}>ℹ️</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
     </div>
   );
 }

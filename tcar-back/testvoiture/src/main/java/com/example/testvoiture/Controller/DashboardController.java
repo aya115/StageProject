@@ -1,6 +1,5 @@
 package com.example.testvoiture.Controller;
 
-import com.example.testvoiture.Entités.SparePart;
 import com.example.testvoiture.Repository.FournisseurRepository;
 import com.example.testvoiture.Repository.MecanicienRepository;
 import com.example.testvoiture.Repository.SparePartRepository;
@@ -36,19 +35,41 @@ public class DashboardController {
         stats.put("notifications", 12); // Exemple fixe ou dynamique
         return stats;
     }
-    // ---- PIECHART ----
-    @GetMapping("/pie")
-    public Map<String, Object> getPieChartData() {
-        // Compter combien de pièces par modèle
+    // ---- PIECHART : Pièces affectées par mécanicien ----
+    @GetMapping("/pie/mecanicien")
+    public Map<String, Object> getPieByMecanicien() {
         Map<String, Long> repartition = pieceRepo.findAll()
                 .stream()
-                .collect(Collectors.groupingBy(SparePart::getModele, Collectors.counting()));
+                .flatMap(p -> p.getMecaniciens().stream()
+                        .map(m -> p.getNom())) // pièces liées aux mécaniciens
+                .collect(Collectors.groupingBy(
+                        pieceName -> pieceName,
+                        Collectors.counting()
+                ));
 
         Map<String, Object> response = new HashMap<>();
-        response.put("labels", repartition.keySet());
-        response.put("values", repartition.values());
+        response.put("labels", repartition.keySet());   // noms des pièces
+        response.put("values", repartition.values());   // combien de fois affectées
         return response;
     }
+
+    @GetMapping("/pie/fournisseur")
+    public Map<String, Object> getPieByFournisseur() {
+        Map<String, Long> repartition = pieceRepo.findAll()
+                .stream()
+                .flatMap(p -> p.getFournisseurs().stream()
+                        .map(f -> p.getNom())) // au lieu de compter par fournisseur, on prend les noms de pièces
+                .collect(Collectors.groupingBy(
+                        pieceName -> pieceName,
+                        Collectors.counting()
+                ));
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("labels", repartition.keySet());   // noms des pièces
+        response.put("values", repartition.values());   // combien de fois chaque pièce est affectée à un fournisseur
+        return response;
+    }
+
 
     // ---- LINECHART ----
     @GetMapping("/line")
@@ -60,7 +81,7 @@ public class DashboardController {
         response.put("labels", Arrays.asList("Fournisseurs", "Mécaniciens"));
         response.put("values", Arrays.asList(fournisseurs, mecaniciens));
         return response;
-    }
 
+}
 }
 

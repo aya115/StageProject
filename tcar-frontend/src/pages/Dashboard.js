@@ -17,10 +17,9 @@ function Dashboard() {
         <Navbar />
         <DashboardCards />
 
-    
-        <div className="charts">
-          <div className="chart-box"><LineChart /></div>
-          <div className="chart-box"><PieChart /></div>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "30px", padding: "20px" }}>
+          <PieChart url="http://localhost:8081/api/dashboard/pie/fournisseur" title="Pièces par Fournisseur" />
+          <PieChart url="http://localhost:8081/api/dashboard/pie/mecanicien" title="Pièces par Mécanicien" />
         </div>
       </div>
     </div>

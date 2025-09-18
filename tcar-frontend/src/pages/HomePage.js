@@ -5,7 +5,7 @@ import image3 from '../assets/image3.png';
 
 const HomePage = () => {
   return (
-    <div className="home-page">
+    <div>
       {/* NAVBAR */}
       <nav className="navbar">
         <div className="logo">🚗 ICARS</div>

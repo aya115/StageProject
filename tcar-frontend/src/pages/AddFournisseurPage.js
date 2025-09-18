@@ -1,20 +1,27 @@
-import React from 'react';
-import AddFournisseurForm from '../components/AddFournisseurForm';
-import Sidebar from '../components/Sidebar';
-import Navbar from '../components/Navbar';
+import React from "react";
+import AddFournisseurForm from "../components/AddFournisseurForm";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
 function AddFournisseurPage() {
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-  
-      {/* Sidebar */}
-      <div style={{ width: "250px", flexShrink: 0 }}>
+    <div style={{ display: "flex"}}>
+      {/* Sidebar (colonne gauche) */}
+      <div style={{ width: "220px", }}>
         <Sidebar />
       </div>
 
-      {/* Contenu principal */}
-      <div style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
-        <AddFournisseurForm />
+      {/* Colonne droite */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        {/* Navbar */}
+        <div style={{  color: "#fff" }}>
+          <Navbar />
+        </div>
+
+        {/* Contenu Fournisseur */}
+        <div style={{ flex: 1 }}>
+          <AddFournisseurForm />
+        </div>
       </div>
     </div>
   );

@@ -6,14 +6,22 @@ function DashboardCards() {
     pieces: 0,
     fournisseurs: 0,
     mecaniciens: 0,
-    notifications: 0,
   });
 
+  const [notifTotal, setNotifTotal] = useState(0);
+
   useEffect(() => {
+    // Charger stats générales
     fetch("http://localhost:8081/api/dashboard/stats")
       .then((res) => res.json())
       .then((data) => setStats(data))
-      .catch((err) => console.error("Erreur chargement stats:", err));
+      .catch((err) => console.error("Erreur chargement stats générales:", err));
+
+    // Charger stats notifications
+    fetch("http://localhost:8081/api/chat/stats")
+      .then((res) => res.json())
+      .then((data) => setNotifTotal(data.total || 0))
+      .catch((err) => console.error("Erreur chargement stats notifications:", err));
   }, []);
 
   return (
@@ -32,7 +40,7 @@ function DashboardCards() {
       </div>
       <div className="card">
         <h3>Notifications</h3>
-        <p>{stats.notifications}</p>
+        <p>{notifTotal}</p>
       </div>
     </div>
   );

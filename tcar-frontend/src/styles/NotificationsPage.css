@@ -1,0 +1,106 @@
+.notifications-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Fixer la sidebar */
+.sidebar {
+  width: 250px;
+  position: fixed;       /* reste collée à gauche */
+  top: 0;
+  left: 0;
+  height: 100vh;         /* prend toute la hauteur */
+  background: #fff;
+  border-right: 1px solid #ddd;
+  z-index: 1000;         /* reste toujours au-dessus */
+}
+
+/* Décaler le contenu */
+.notifications-content {
+  margin-left: 250px;    /* laisse la place de la sidebar */
+  flex: 1;
+  padding: 30px;
+}
+.notifications-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+}
+
+.notifications-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.notifications-content h2 {
+  margin-bottom: 25px;
+  color: #222;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.stat-widget {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-widget:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 10px 22px rgba(0, 0, 0, 0.15);
+}
+
+.stat-widget h3 {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.stat-widget p {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Couleurs dégradées */
+.stat-widget.total {
+  background: linear-gradient(135deg, #6f42c1, #9b59b6);
+  color: white;
+}
+
+.stat-widget.fournisseurs {
+  background: linear-gradient(135deg, #007bff, #00a8ff);
+  color: white;
+}
+
+.stat-widget.mecaniciens {
+  background: linear-gradient(135deg, #28a745, #2ecc71);
+  color: white;
+}
+
+.stat-widget.pieces {
+  background: linear-gradient(135deg, #ffc107, #f39c12);
+  color: white;
+}

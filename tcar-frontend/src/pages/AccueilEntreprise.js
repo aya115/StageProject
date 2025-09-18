@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../styles/Dashboards.css';
 import '../styles/AccueilEntreprise.css';
 import ChatBot from '../components/ChatBot';
+import SearchPage from "./SearchBar";
 
 import {
   FaCar, FaTools, FaHome, FaSignOutAlt,
@@ -142,7 +143,7 @@ const [view, setView] = useState('tableauParDefaut');
           <li onClick={() => setView('voitures')}><FaCar /> Mes Voitures</li>
           <li onClick={() => setView('affectations')}><FaTools /> Spare Parts</li>
           <li onClick={() => setView('chat')}>💬 Chat</li>
-          <li onClick={() => setView('chat')}> Recherche intelligente</li>
+          <li onClick={() => setView('search')}> Recherche intelligente</li>
 
 
         </ul>
@@ -186,7 +187,7 @@ const [view, setView] = useState('tableauParDefaut');
 )}
 
 {view === 'chat' && <ChatBot />}
-
+{view === 'search' && <SearchPage />}
 
         {view === 'voitures' && (
           <div>

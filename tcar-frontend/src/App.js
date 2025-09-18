@@ -11,7 +11,9 @@ import ListePieces from './components/ListePieces';
 import HomePage from './pages/HomePage';
 import AccueilParticipant from "./pages/AccueilParticipant";
 import AccueilEntreprise from "./pages/AccueilEntreprise";
-import SearchPage from "./pages/SearchBar";
+import ForgotPassword from "./pages/ForgetPassword"; // <-- ton composant
+import NotificationsPage from "./pages/NotificationsPage";
+
 // Exemple de route dans React Router v6+
 
 function App() {
@@ -19,12 +21,13 @@ function App() {
     <Router>
       <Routes>
 
+        <Route path="/notifications" element={<NotificationsPage />} />
 
         <Route path="/add-fournisseur" element={<AddFournisseurPage />} />
         <Route path="/homeparticipant" element={<AccueilParticipant />} />
         <Route path="/homeentreprise" element={<AccueilEntreprise />} />
 
-
+<Route path="/forgot-password" element={<ForgotPassword />} />
 
 <Route path="/add-mecanicien" element={<AddMecanicienPage />} />
 <Route path="/add-piece" element={<AddPiecePage />} />

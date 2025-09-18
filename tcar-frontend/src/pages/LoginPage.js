@@ -7,40 +7,46 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:8081/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('http://localhost:8081/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
 
-      if (!response.ok) throw new Error('Login failed');
+    if (!response.ok) throw new Error('Login failed');
 
-      const data = await response.json();
+    const data = await response.json();
 
-      // Sauvegarde complète dans localStorage
-      localStorage.setItem('user', JSON.stringify({
-        id: data.id,
-        username: data.username,
-        role: data.role
-      }));
-
-      // Redirection selon rôle
-      if (data.role === 'ADMIN') {
-        navigate('/homeadmin');
-      } else if (data.role === 'PARTICIPANT') {
-        navigate('/homeparticipant');
-      } else if (data.role === 'ENTREPRISE') {
-        navigate('/homeentreprise');
-      } else {
-        alert("Rôle non reconnu !");
-      }
-    } catch (error) {
-      alert("Identifiants invalides !");
+    // ✅ Sauvegarde du token
+    if (data.token) {
+      localStorage.setItem("token", data.token);
     }
-  };
+
+    // ✅ Sauvegarde des infos user
+    localStorage.setItem('user', JSON.stringify({
+      id: data.id,
+      username: data.username,
+      role: data.role
+    }));
+
+    // ✅ Redirection selon rôle
+    if (data.role === 'ADMIN') {
+      navigate('/homeadmin');
+    } else if (data.role === 'PARTICIPANT') {
+      navigate('/homeparticipant');
+    } else if (data.role === 'ENTREPRISE') {
+      navigate('/homeentreprise');
+    } else {
+      alert("Rôle non reconnu !");
+    }
+  } catch (error) {
+    alert("Identifiants invalides !");
+  }
+};
+
 
   return (
     <div className="login-wrapper">
@@ -75,7 +81,9 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit" className="login-btn">LOGIN</button>
-            <a href="/forgot-password" className="forgot">Forgot Password?</a>
+<button type="button" onClick={() => navigate("/forgot-password")}>
+  Forgot Password?
+</button>
           </form>
         </div>
       </div>
